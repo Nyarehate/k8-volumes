@@ -1,0 +1,14 @@
+# This is to claim the Physical Volume defined in the host-pv.yaml
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: host-pvc
+spec:
+  volumeName: host-pv
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: standard
+  resources:
+    requests:
+      storage: 1Gi # this tells the pod to only claim that much storage

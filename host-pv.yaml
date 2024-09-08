@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: host-pv
+spec:
+  capacity:
+    storage: 4Gi # the pod will adapt the storage, knowing the limit is 4Gi
+  VolumeMode: Filesystem
+  storageClassName: standard
+  accessModes: 
+    - ReadWriteOnce
+  hostPath:
+    path: /data
+    type: DirectoryOrCreate

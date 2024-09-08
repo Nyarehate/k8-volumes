@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: story
+  template:
+    metadata:
+      labels:
+        app: story
+    spec:
+      containers:
+        - name: story
+          image: crescents/k8-data-ex
+          volumeMounts: # where the volume of this container should be mounted internally
+            - mountPath: /app/story
+              name: story-volume
+      volumes:
+        - name: story-volume
+          #emptyDir: {} # this creates a new emptyDir whenever the pod starts and stores the data related to it as long as the pods survives
+          #hostPath: # like bindMount in docker it links a path in the fs of the host to a pod
+            #path: /data
+            #type: DirectoryOrCreate
+          PersistentVolumeClaim:
+            claimName: host-pvc # this overwrite the above typying
